@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relLayoutPlayerListItem"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    tools:context="com.baziiz.gametimer2.MainActivity">
     <TextView
         android:id="@+id/textViewPlayerListItemName"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Player x"/>
-    <com.gc.materialdesign.views.ButtonIcon
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textSize="18sp" />
+    <ImageButton
+        android:id="@+id/buttonIconPlayerListItemColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/buttonIconPlayerListItemDelete"
+        android:src="@drawable/ic_action_format_color_fill"
+        android:focusable="false" />
+    <ImageButton
         android:id="@+id/buttonIconPlayerListItemDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        materialdesign:iconDrawable="@drawable/ic_action_remove"/>
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_action_remove_circle"
+        android:focusable="false"
+        android:background="#EE0000" />
 
-</LinearLayout>
+</RelativeLayout>

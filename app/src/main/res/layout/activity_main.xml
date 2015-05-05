@@ -1,4 +1,52 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/fragment"
-    android:name="com.baziiz.gametimer2.MainActivityFragment" tools:layout="@layout/fragment_main"
-    android:layout_width="match_parent" android:layout_height="match_parent" />
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent" android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="0dp" tools:context=".MainActivityFragment">
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listViewPlayers" />
+
+    <!-- bottom action bar (with "start game button" -->
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/bottom_bar_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/background_material_dark">
+        <Button
+            android:id="@+id/buttonFlatBeginGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#1E88E5"
+            android:text="@string/begin_game"
+            android:layout_gravity="center"
+            android:onClick="onBeginGameButtonClicked"/>
+    </FrameLayout>
+
+    <com.rey.material.widget.FloatingActionButton
+        android:id="@+id/buttonFloatAddPlayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        app:fab_iconSrc="@drawable/ic_action_add"
+        />
+
+    <!-- material design floating action button -->
+<!--    <com.gc.materialdesign.views.ButtonFloat
+        android:id="@+id/buttonFloatAddPlayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="24dp"
+        android:background="#1E88E5"
+        materialdesign:animate="true"
+        materialdesign:iconDrawable="@drawable/ic_action_add"
+        android:onClick="onAddPlayerButtonClicked" />
+-->
+</RelativeLayout>
