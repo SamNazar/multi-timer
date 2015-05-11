@@ -2,32 +2,43 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relLayoutPlayerListItem"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="56dp"
     android:gravity="center_vertical"
     tools:context="com.baziiz.gametimer2.MainActivity">
     <TextView
         android:id="@+id/textViewPlayerListItemName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:text="PLAYER NAME"
+        android:layout_gravity="center" />
     <ImageButton
         android:id="@+id/buttonIconPlayerListItemColor"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_toLeftOf="@+id/buttonIconPlayerListItemDelete"
         android:src="@drawable/ic_action_format_color_fill"
-        android:focusable="false" />
+        android:focusable="false"
+        android:background="@color/clear"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:paddingRight="16dp"/>
     <ImageButton
         android:id="@+id/buttonIconPlayerListItemDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:src="@drawable/ic_action_remove_circle"
+        android:background="@color/clear"
         android:focusable="false"
-        android:background="#EE0000" />
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:paddingRight="16dp"/>
 
 </RelativeLayout>

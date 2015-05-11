@@ -13,6 +13,7 @@
 
     <!-- bottom action bar (with "start game button" -->
     <FrameLayout
+        android:id="@+id/frameBottomBar"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/bottom_bar_height"
         android:layout_alignParentBottom="true"
@@ -21,8 +22,9 @@
             android:id="@+id/buttonFlatBeginGame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#1E88E5"
+            android:background="@color/background_material_dark"
             android:text="@string/begin_game"
+            android:textColor="@color/button_material_light"
             android:layout_gravity="center"
             android:onClick="onBeginGameButtonClicked"/>
     </FrameLayout>
@@ -34,6 +36,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         app:fab_iconSrc="@drawable/ic_action_add"
+        app:fab_backgroundColor="@color/accent"
+        android:layout_marginBottom="13dp"
+        android:layout_marginRight="8dp"
         />
 
     <!-- material design floating action button -->
