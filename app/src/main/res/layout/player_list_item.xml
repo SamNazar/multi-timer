@@ -8,16 +8,27 @@
     android:minHeight="56dp"
     android:gravity="center_vertical"
     tools:context="com.baziiz.gametimer2.MainActivity">
+    <ImageView
+        android:id="@+id/dragHandle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@android:drawable/btn_star_big_on"
+        android:layout_marginLeft="8dp"
+        android:layout_gravity="center_vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"        />
     <TextView
         android:id="@+id/textViewPlayerListItemName"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:textSize="18sp"
         android:text="PLAYER NAME"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/dragHandle"/>
     <ImageButton
         android:id="@+id/buttonIconPlayerListItemColor"
         android:layout_width="wrap_content"

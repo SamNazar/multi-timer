@@ -25,7 +25,7 @@ public class MainActivity extends ActionBarActivity {
     public static final int MAX_PLAYERS = 8;
 
     FloatingActionButton buttonFloatAddPlayer;
-    ListView listViewPlayers;
+    DragNDropListView listViewPlayers;
     ArrayList<GamePlayer> dataItems;
     PlayerListAdapter adapter;
     int blah;
@@ -35,12 +35,12 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         buttonFloatAddPlayer = (FloatingActionButton) this.findViewById(R.id.buttonFloatAddPlayer);
-        listViewPlayers = (ListView) this.findViewById(R.id.listViewPlayers);
+        listViewPlayers = (DragNDropListView) this.findViewById(R.id.listViewPlayers);
 
         dataItems = new ArrayList<>();
         dataItems.add(new GamePlayer("Player 1", Color.RED));
-        adapter = new PlayerListAdapter(MainActivity.this, dataItems);
-        listViewPlayers.setAdapter(adapter);
+        adapter = new PlayerListAdapter(MainActivity.this, dataItems, R.id.dragHandle);
+        listViewPlayers.setDragNDropAdapter(adapter);
 
         buttonFloatAddPlayer.setOnClickListener(new Button.OnClickListener() {
             @Override

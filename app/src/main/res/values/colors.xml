@@ -3,6 +3,7 @@
     <color name="primary">#03A9F4</color>
     <color name="primary_dark">#0288D1</color>
     <color name="accent">#FF5722</color>
+    <color name="clear">#00000000</color>
 
     <!-- board game piece colors -->
     <color name="bg_black">#212121</color>
