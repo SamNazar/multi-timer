@@ -19,5 +19,5 @@ package com.baziiz.gametimer2;
 import android.widget.ListAdapter;
 
 public interface DragNDropAdapter extends ListAdapter, DragNDropListView.OnItemDragNDropListener {
-    public int getDragHandler();
+    public int getDragHandle();
 }

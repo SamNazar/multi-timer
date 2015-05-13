@@ -1,44 +1,44 @@
 package com.baziiz.gametimer2;
 
+import android.app.DialogFragment;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.rey.material.widget.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity
+    implements ColorSelectionDialogFragment.ColorDialogListener {
 
     public static final int MAX_PLAYERS = 8;
+    public static final int NEW_PLAYER_POSITION = -1;
 
     FloatingActionButton buttonFloatAddPlayer;
     DragNDropListView listViewPlayers;
     ArrayList<GamePlayer> dataItems;
     PlayerListAdapter adapter;
-    int blah;
+    // keeps track of the index of the player we are currently editing
+    private int currentPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        currentPlayer = 0;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         buttonFloatAddPlayer = (FloatingActionButton) this.findViewById(R.id.buttonFloatAddPlayer);
         listViewPlayers = (DragNDropListView) this.findViewById(R.id.listViewPlayers);
 
         dataItems = new ArrayList<>();
-        dataItems.add(new GamePlayer("Player 1", Color.RED));
+        dataItems.add(new GamePlayer("Green Player", getResources().getColor(R.color.bg_green)));
         adapter = new PlayerListAdapter(MainActivity.this, dataItems, R.id.dragHandle);
         listViewPlayers.setDragNDropAdapter(adapter);
 
@@ -47,9 +47,9 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v){
 
                 if (adapter.getCount() < MAX_PLAYERS) {
-                    adapter.add(new GamePlayer("Player " + String.valueOf(blah), Color.BLUE));
-                    adapter.notifyDataSetChanged();
-                    blah = blah + 1;
+                    // we can add a new player
+                    // show the color selection dialog for the new player
+                    showColorSelectionDialog(NEW_PLAYER_POSITION);
                     if (adapter.getCount() == MAX_PLAYERS) {
                         buttonFloatAddPlayer.setEnabled(false);
                     }
@@ -74,16 +74,22 @@ public class MainActivity extends ActionBarActivity {
                 }
             }
         });
+    }
 
-        blah = 1;
+    private void addPlayer(int colorIndex) {
+        final int[] colorList = getResources().getIntArray(R.array.player_colors);
+        final String[] colorNameList = getResources().getStringArray(R.array.player_color_names);
+        int color = colorList[colorIndex];
+        adapter.add(new GamePlayer(colorNameList[colorIndex] + " Player", color));
+        adapter.notifyDataSetChanged();
     }
 
 //    public void onAddPlayerButtonClicked(View v){
 //
 //        if (adapter.getCount() < MAX_PLAYERS) {
-//            adapter.add(new GamePlayer("Player " + String.valueOf(blah), Color.BLUE));
+//            adapter.add(new GamePlayer("Player " + String.valueOf(addedPlayerIndex), Color.BLUE));
 //            adapter.notifyDataSetChanged();
-//            blah = blah + 1;
+//            addedPlayerIndex = addedPlayerIndex + 1;
 //            if (adapter.getCount() == MAX_PLAYERS) {
 //                buttonFloatAddPlayer.setEnabled(false);
 //            }
@@ -99,6 +105,33 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onItemSetColorClicked(final int position){
+        showColorSelectionDialog(position);
+    }
+
+    public void showColorSelectionDialog(int playerPosition) {
+        // Create an instance of the dialog fragment and show it
+        DialogFragment dialog = new ColorSelectionDialogFragment();
+        dialog.show(getFragmentManager(), "ColorSelectionDialog");
+        currentPlayer = playerPosition;
+    }
+
+    @Override
+    public void onColorSelected(int colorIndex) {
+        // user selected a color in the color selection dialog
+        int colorValue = getResources().getIntArray(R.array.player_colors)[colorIndex];
+        GamePlayer playerToChange;
+        if (currentPlayer == NEW_PLAYER_POSITION) {
+            // we are adding a new player
+            addPlayer(colorIndex);
+        } else {
+            // we are editing the color of an existing player
+            playerToChange = dataItems.get(currentPlayer);
+            playerToChange.setColor(colorValue);
+            dataItems.set(currentPlayer, playerToChange);
+            adapter.notifyDataSetChanged();
+            String colorName = getResources().getStringArray(R.array.player_color_names)[colorIndex];
+            Toast.makeText(this, playerToChange.getName() + " set to " + colorName , Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void onBeginGameButtonClicked(View beginButton){

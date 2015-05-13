@@ -41,17 +41,4 @@
         android:layout_marginRight="8dp"
         />
 
-    <!-- material design floating action button -->
-<!--    <com.gc.materialdesign.views.ButtonFloat
-        android:id="@+id/buttonFloatAddPlayer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="24dp"
-        android:background="#1E88E5"
-        materialdesign:animate="true"
-        materialdesign:iconDrawable="@drawable/ic_action_add"
-        android:onClick="onAddPlayerButtonClicked" />
--->
 </RelativeLayout>

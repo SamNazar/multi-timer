@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="player_colors">
+        <item>@color/bg_black</item>
+        <item>@color/bg_grey</item>
+        <item>@color/bg_white</item>
+        <item>@color/bg_red</item>
+        <item>@color/bg_pink</item>
+        <item>@color/bg_purple</item>
+        <item>@color/bg_blue</item>
+        <item>@color/bg_light_blue</item>
+        <item>@color/bg_teal</item>
+        <item>@color/bg_green</item>
+        <item>@color/bg_light_green</item>
+        <item>@color/bg_yellow</item>
+        <item>@color/bg_orange</item>
+        <item>@color/bg_brown</item>
+        <item>@color/bg_natural</item>
+    </array>
+</resources>

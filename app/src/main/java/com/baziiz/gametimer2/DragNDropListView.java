@@ -30,8 +30,6 @@ import android.widget.ListView;
 import android.widget.Adapter;
 import android.widget.WrapperListAdapter;
 
-import com.baziiz.gametimer2.DragNDropAdapter;
-
 public class DragNDropListView extends ListView {
 
     public interface OnItemDragNDropListener {
@@ -79,7 +77,7 @@ public class DragNDropListView extends ListView {
     }
 
     public void setDragNDropAdapter(DragNDropAdapter adapter) {
-        mDragHandler = adapter.getDragHandler();
+        mDragHandler = adapter.getDragHandle();
         setAdapter(adapter);
     }
 
