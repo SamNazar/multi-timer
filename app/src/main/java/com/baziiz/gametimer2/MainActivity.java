@@ -50,9 +50,9 @@ public class MainActivity extends ActionBarActivity
                     // we can add a new player
                     // show the color selection dialog for the new player
                     showColorSelectionDialog(NEW_PLAYER_POSITION);
-                    if (adapter.getCount() == MAX_PLAYERS) {
-                        buttonFloatAddPlayer.setEnabled(false);
-                    }
+//                    if (adapter.getCount() == MAX_PLAYERS) {
+//                        buttonFloatAddPlayer.setEnabled(false);
+//                    }
                 } else {
                     Toast.makeText(v.getContext(), R.string.error_max_players, Toast.LENGTH_SHORT).show();
                 }
@@ -80,7 +80,21 @@ public class MainActivity extends ActionBarActivity
         final int[] colorList = getResources().getIntArray(R.array.player_colors);
         final String[] colorNameList = getResources().getStringArray(R.array.player_color_names);
         int color = colorList[colorIndex];
-        adapter.add(new GamePlayer(colorNameList[colorIndex] + " Player", color));
+        String playerName = colorNameList[colorIndex] + " Player";
+        int multipleNum = 2;
+        // the following while statement is to help avoiding duplicate names when adding players with the same color
+        while(adapter.hasPlayerWithName(playerName) && multipleNum < 9)
+        {
+            if (multipleNum == 2) {
+                // we haven't added a numerical suffix yet
+                playerName = playerName + " " + String.valueOf(multipleNum);
+            } else {
+                // there is already a number suffix (or other tomfoolery)
+                playerName = playerName.substring(0, playerName.length()-1) + String.valueOf(multipleNum);
+            }
+            multipleNum = multipleNum + 1;
+        }
+        adapter.add(new GamePlayer(playerName, color));
         adapter.notifyDataSetChanged();
     }
 
@@ -137,7 +151,8 @@ public class MainActivity extends ActionBarActivity
     public void onBeginGameButtonClicked(View beginButton){
 
         Intent intent = new Intent(this, GamePlayActivity.class);
-        intent.putExtra("Players", adapter.getCount());
+        //intent.putExtra("Players", adapter.getCount());
+        intent.putParcelableArrayListExtra("players", dataItems);
         startActivity(intent);
 
     }

@@ -112,10 +112,19 @@ public class PlayerListAdapter extends ArrayAdapter<GamePlayer>
 //        Log.i("POO", "Starting at " + String.valueOf(startPosition) + " and going to " + String.valueOf(endPosition));
     }
 
+    public boolean hasPlayerWithName(String playerName) {
+        for (GamePlayer pl: data) {
+            if (pl.getName().equalsIgnoreCase(playerName))
+                return true;
+        }
+        return false;
+    }
+
     @Override
     public int getDragHandle() {
         return mHandle;
     }
+
     public class ViewHolder {
         RelativeLayout layoutItem;
         TextView playerName;
