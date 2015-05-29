@@ -46,6 +46,8 @@ public class PlayerListAdapter extends ArrayAdapter<GamePlayer>
                     .findViewById(R.id.relLayoutPlayerListItem);
             viewHolder.playerName = (TextView) convertView
                     .findViewById(R.id.textViewPlayerListItemName);
+            viewHolder.buttonNameEdit = (ImageButton) convertView
+                    .findViewById(R.id.buttonIconPlayerListItemName);
             viewHolder.buttonDeletePlayer = (ImageButton) convertView
                     .findViewById(R.id.buttonIconPlayerListItemDelete);
             viewHolder.buttonColorSelect = (ImageButton) convertView
@@ -57,17 +59,18 @@ public class PlayerListAdapter extends ArrayAdapter<GamePlayer>
             viewHolder = (ViewHolder) convertView.getTag();
         }
         GamePlayer player = getItem(position);
-        int brightness = ColorUtility.getBrightness(player.getColor());
         // change color of cell contents based on brightness of background / player color
-        if (brightness < 128) {
+        if (ColorUtility.isDark(player.getColor())) {
             viewHolder.playerName.setTextColor(Color.WHITE);
             viewHolder.buttonColorSelect.setImageResource(R.drawable.ic_action_format_color_fill);
             viewHolder.buttonDeletePlayer.setImageResource(R.drawable.ic_action_remove_circle);
+            viewHolder.buttonNameEdit.setImageResource(R.drawable.ic_action_mode_edit);
             viewHolder.dragHandle.setImageResource(R.drawable.ic_action_reorder);
         } else {
             viewHolder.playerName.setTextColor(Color.BLACK);
             viewHolder.buttonColorSelect.setImageResource(R.drawable.ic_action_format_color_fill_bk);
             viewHolder.buttonDeletePlayer.setImageResource(R.drawable.ic_action_remove_circle_bk);
+            viewHolder.buttonNameEdit.setImageResource(R.drawable.ic_action_mode_edit_bk);
             viewHolder.dragHandle.setImageResource(R.drawable.ic_action_reorder_bk);
         }
         viewHolder.playerName.setText(player.getName());
@@ -81,6 +84,13 @@ public class PlayerListAdapter extends ArrayAdapter<GamePlayer>
             }
         });
         viewHolder.buttonColorSelect.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                ((ListView) parent).performItemClick(v, position, 0);
+            }
+        });
+        viewHolder.buttonNameEdit.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -131,6 +141,7 @@ public class PlayerListAdapter extends ArrayAdapter<GamePlayer>
         ImageView dragHandle;
         ImageButton buttonDeletePlayer;
         ImageButton buttonColorSelect;
+        ImageButton buttonNameEdit;
     }
 
 }

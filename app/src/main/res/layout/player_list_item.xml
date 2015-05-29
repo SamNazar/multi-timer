@@ -31,6 +31,17 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/dragHandle"/>
     <ImageButton
+        android:id="@+id/buttonIconPlayerListItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/buttonIconPlayerListItemColor"
+        android:src="@drawable/ic_action_mode_edit"
+        android:focusable="false"
+        android:background="@color/clear"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:paddingRight="16dp"/>
+    <ImageButton
         android:id="@+id/buttonIconPlayerListItemColor"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

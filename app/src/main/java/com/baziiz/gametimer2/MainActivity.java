@@ -1,14 +1,19 @@
 package com.baziiz.gametimer2;
 
+import android.app.AlertDialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.rey.material.widget.FloatingActionButton;
@@ -63,14 +68,18 @@ public class MainActivity extends ActionBarActivity
             @Override
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                long viewId = view.getId();
-
-                if (viewId == R.id.buttonIconPlayerListItemColor) {
-                    onItemSetColorClicked(position);
-                } else if (viewId == R.id.buttonIconPlayerListItemDelete) {
-                    onItemDeleteClicked(position);
-                } else {
-                    Toast.makeText(parent.getContext(), "ListView clicked" + id, Toast.LENGTH_SHORT).show();
+                switch (view.getId()) {
+                    case R.id.buttonIconPlayerListItemColor:
+                        onItemSetColorClicked(position);
+                        break;
+                    case R.id.buttonIconPlayerListItemDelete:
+                        onItemDeleteClicked(position);
+                        break;
+                    case R.id.buttonIconPlayerListItemName:
+                        onItemEditNameClicked(position);
+                        break;
+                    default:
+                        Toast.makeText(parent.getContext(), "ListView clicked" + id, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -122,11 +131,39 @@ public class MainActivity extends ActionBarActivity
         showColorSelectionDialog(position);
     }
 
+    public void onItemEditNameClicked(final int position) {
+        showNameEditDialog(position);
+    }
+
     public void showColorSelectionDialog(int playerPosition) {
         // Create an instance of the dialog fragment and show it
         DialogFragment dialog = new ColorSelectionDialogFragment();
         dialog.show(getFragmentManager(), "ColorSelectionDialog");
         currentPlayer = playerPosition;
+    }
+
+    public void showNameEditDialog(final int playerPosition) {
+        // Create a dialog fragment with an editText and show it
+        currentPlayer = playerPosition;
+        final EditText input = new EditText(this);
+        input.setText(dataItems.get(playerPosition).getName());
+        input.setSelectAllOnFocus(true);
+        input.setSingleLine();
+        input.setMaxLines(1);
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle("Player Name")
+                .setView(input)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dataItems.get(currentPlayer).setName(input.getText().toString());
+                        adapter.notifyDataSetChanged();
+                    }
+                }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // Do nothing.
+                        dialog.dismiss();
+                    }
+                }).show();
     }
 
     @Override

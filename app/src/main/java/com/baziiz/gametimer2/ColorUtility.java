@@ -16,4 +16,9 @@ public class ColorUtility {
     public static int getBrightness(int color) {
         return getBrightness(Color.red(color), Color.green(color), Color.blue(color));
     }
+
+    public static boolean isDark(int color) {
+        if (getBrightness(color) < 128) return true;
+        return false;
+    }
 }
