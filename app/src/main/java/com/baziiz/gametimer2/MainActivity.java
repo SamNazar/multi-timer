@@ -36,14 +36,23 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        currentPlayer = 0;
         super.onCreate(savedInstanceState);
+
+        // restore player data if activity is being re-created:
+        if (savedInstanceState != null) {
+            dataItems = savedInstanceState.getParcelableArrayList("dataItems");
+            currentPlayer = savedInstanceState.getInt("currentPlayer");
+        } else {
+            // otherwise initialize the data
+            dataItems = new ArrayList<>();
+            dataItems.add(new GamePlayer(getResources().getStringArray(R.array.player_color_names)[9], getResources().getColor(R.color.bg_green)));
+            currentPlayer = 0;
+        }
+
         setContentView(R.layout.activity_main);
         buttonFloatAddPlayer = (FloatingActionButton) this.findViewById(R.id.buttonFloatAddPlayer);
         listViewPlayers = (DragNDropListView) this.findViewById(R.id.listViewPlayers);
 
-        dataItems = new ArrayList<>();
-        dataItems.add(new GamePlayer("Green Player", getResources().getColor(R.color.bg_green)));
         adapter = new PlayerListAdapter(MainActivity.this, dataItems, R.id.dragHandle);
         listViewPlayers.setDragNDropAdapter(adapter);
 
@@ -89,7 +98,7 @@ public class MainActivity extends ActionBarActivity
         final int[] colorList = getResources().getIntArray(R.array.player_colors);
         final String[] colorNameList = getResources().getStringArray(R.array.player_color_names);
         int color = colorList[colorIndex];
-        String playerName = colorNameList[colorIndex] + " Player";
+        String playerName = colorNameList[colorIndex];
         int multipleNum = 2;
         // the following while statement is to help avoiding duplicate names when adding players with the same color
         while(adapter.hasPlayerWithName(playerName) && multipleNum < 9)
@@ -151,14 +160,14 @@ public class MainActivity extends ActionBarActivity
         input.setSingleLine();
         input.setMaxLines(1);
         new AlertDialog.Builder(MainActivity.this)
-                .setTitle("Player Name")
+                .setTitle(R.string.enter_name)
                 .setView(input)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         dataItems.get(currentPlayer).setName(input.getText().toString());
                         adapter.notifyDataSetChanged();
                     }
-                }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                }).setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // Do nothing.
                         dialog.dismiss();
@@ -214,5 +223,14 @@ public class MainActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // save the list of players
+        savedInstanceState.putParcelableArrayList("dataItems", dataItems);
+        // save the current player being edited
+        savedInstanceState.putInt("currentPlayer", currentPlayer);
+        super.onSaveInstanceState(savedInstanceState);
     }
 }

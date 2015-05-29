@@ -70,17 +70,21 @@ public class GamePlayActivity extends ActionBarActivity
                 tableRow = new TableRow(this);
                 tableRow.setGravity(Gravity.CENTER);
                 tableRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT, 1.0f));
+                // set the gravity left so that rows with only one item do not look awkward
+                tableRow.setHorizontalGravity(Gravity.LEFT);
             }
             Chronometer btnPlayer = new Chronometer(this);
             btnPlayer.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
             btnPlayer.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+            btnPlayer.setHeight(0);
+            btnPlayer.setWidth(0);
             btnPlayer.setText(player.getName() + System.getProperty("line.separator") + "00:00");
             btnPlayer.setFormat(player.getName() + System.getProperty("line.separator") + "%s");
-            btnPlayer.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
-            if (ColorUtility.getBrightness(player.getColor()) > 127) {
-                btnPlayer.setTextColor(Color.BLACK);
-            } else {
+            btnPlayer.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
+            if (ColorUtility.isDark(player.getColor())) {
                 btnPlayer.setTextColor(Color.WHITE);
+            } else {
+                btnPlayer.setTextColor(Color.BLACK);
             }
             btnPlayer.setBackgroundColor(player.getColor());
             btnPlayer.setId(players.indexOf(player));
@@ -99,8 +103,7 @@ public class GamePlayActivity extends ActionBarActivity
                 if (paused) {
                     if (activeButton != -1) {
                         // unpause and go back to activating previously pressed button
-                        buttonFloatPause.setIcon(getResources().getDrawable(R.drawable.ic_action_pause), true);
-                        // this will set paused to false
+                        // this will set paused to false and change the icon for us
                         activatePlayerView(activeButton);
                     }
                 } else {
@@ -126,13 +129,17 @@ public class GamePlayActivity extends ActionBarActivity
         Log.i("TIMER", "Activating " + String.valueOf(btnId));
         // ignore re-clicks of the same button
         if ((activeButton == btnId) && !paused) return;
+        // if changing from one player to another
         if (!paused) {
             stopCurrentPlayer();
+        } else { // if restarting from paused state
+            paused = false;
+            buttonFloatPause.setIcon(getResources().getDrawable(R.drawable.ic_action_pause), true);
         }
-        // now set the black border on the button that was just pressed
         activeButton = btnId;
-        paused = false;
+
         Chronometer btn = (Chronometer)findViewById(btnId);
+        // now set the black border on the button that was just pressed
         GradientDrawable gd = new GradientDrawable();
         gd.setColor(players.get(btnId).getColor());
         gd.setStroke(30, 0xFF000000);
@@ -140,7 +147,7 @@ public class GamePlayActivity extends ActionBarActivity
             gd.setStroke(30, 0xFFFFFFFF);
         }
         // TODO : Fix the API issue or use a different effect
-        btn.setBackground((Drawable) gd);
+        btn.setBackground(gd);
         btn.setBase(SystemClock.elapsedRealtime() - times[btnId]);
         btn.start();
         btn.invalidate();

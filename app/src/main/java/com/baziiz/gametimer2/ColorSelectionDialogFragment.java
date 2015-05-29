@@ -58,7 +58,7 @@ public class ColorSelectionDialogFragment extends DialogFragment {
 
                     }
                 })
-                .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // if the user hits cancel, do nothing and return to the main screen
                     }
