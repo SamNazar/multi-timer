@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
@@ -6,6 +7,8 @@
 # Created by https://www.gitignore.io
 
 ### Android ###
+=======
+>>>>>>> 0a04eedd6b44a1324306081cb26cfd869e833b45
 # Built application files
 *.apk
 *.ap_
@@ -33,6 +36,7 @@ proguard/
 
 # Log Files
 *.log
+<<<<<<< HEAD
 
 ### Android Patch ###
 gen-external-apklibs
@@ -40,3 +44,5 @@ gen-external-apklibs
 # Android Studio
 *.iml
 .idea
+=======
+>>>>>>> 0a04eedd6b44a1324306081cb26cfd869e833b45
