@@ -2,21 +2,25 @@ package com.baziiz.gametimer2;
 
 import android.app.AlertDialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
+
+import android.support.design.widget.FloatingActionButton;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.rey.material.widget.FloatingActionButton;
+//import com.rey.material.widget.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -116,20 +120,6 @@ public class MainActivity extends ActionBarActivity
         adapter.notifyDataSetChanged();
     }
 
-//    public void onAddPlayerButtonClicked(View v){
-//
-//        if (adapter.getCount() < MAX_PLAYERS) {
-//            adapter.add(new GamePlayer("Player " + String.valueOf(addedPlayerIndex), Color.BLUE));
-//            adapter.notifyDataSetChanged();
-//            addedPlayerIndex = addedPlayerIndex + 1;
-//            if (adapter.getCount() == MAX_PLAYERS) {
-//                buttonFloatAddPlayer.setEnabled(false);
-//            }
-//        } else {
-//            Toast.makeText(this, R.string.error_max_players, Toast.LENGTH_SHORT).show();
-//        }
-//    }
-
     public void onItemDeleteClicked(int position){
         adapter.remove(adapter.getItem(position));
         adapter.notifyDataSetChanged();
@@ -173,6 +163,8 @@ public class MainActivity extends ActionBarActivity
                         dialog.dismiss();
                     }
                 }).show();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
     @Override

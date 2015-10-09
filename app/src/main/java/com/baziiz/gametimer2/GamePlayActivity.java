@@ -21,9 +21,8 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-import com.rey.material.widget.FloatingActionButton;
+import android.support.design.widget.FloatingActionButton;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -111,7 +110,7 @@ public class GamePlayActivity extends ActionBarActivity
                     paused = true;
                     // stop currently active timer
                     stopCurrentPlayer();
-                    buttonFloatPause.setIcon(getResources().getDrawable(R.drawable.ic_action_play_arrow), true);
+                    buttonFloatPause.setImageResource(R.drawable.ic_action_play_arrow);
                 }
             }
         });
@@ -134,7 +133,7 @@ public class GamePlayActivity extends ActionBarActivity
             stopCurrentPlayer();
         } else { // if restarting from paused state
             paused = false;
-            buttonFloatPause.setIcon(getResources().getDrawable(R.drawable.ic_action_pause), true);
+            buttonFloatPause.setImageResource(R.drawable.ic_action_pause);
         }
         activeButton = btnId;
 

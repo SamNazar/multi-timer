@@ -31,14 +31,13 @@
             android:onClick="onBeginGameButtonClicked"/>
     </FrameLayout>
 
-    <com.rey.material.widget.FloatingActionButton
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/buttonFloatAddPlayer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        app:fab_iconSrc="@drawable/ic_action_add"
-        app:fab_backgroundColor="@color/accent"
+        android:src="@drawable/ic_action_add"
         android:layout_marginBottom="13dp"
         android:layout_marginRight="8dp"
         />
